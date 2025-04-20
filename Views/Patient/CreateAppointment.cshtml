@@ -1,0 +1,65 @@
+@model HealthcareSystem.Models.Appointment
+@{
+    ViewData["Title"] = "Schedule Appointment";
+}
+
+<div class="container mt-4">
+    <h2>Schedule New Appointment</h2>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="CreateAppointment" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="HospitalId" class="control-label">Hospital</label>
+                    <select asp-for="HospitalId" class="form-select" asp-items="ViewBag.Hospitals">
+                        <option value="">-- Select Hospital --</option>
+                    </select>
+                    <span asp-validation-for="HospitalId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="DoctorId" class="control-label">Doctor</label>
+                    <select asp-for="DoctorId" class="form-select" asp-items="ViewBag.Doctors">
+                        <option value="">-- Select Doctor --</option>
+                    </select>
+                    <span asp-validation-for="DoctorId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="AppointmentDate" class="control-label">Appointment Date & Time</label>
+                    <input asp-for="AppointmentDate" class="form-control" type="datetime-local" />
+                    <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Schedule Appointment</button>
+                    <a asp-action="Appointments" class="btn btn-secondary">Back to Appointments</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $("#HospitalId").change(function () {
+                var hospitalId = $(this).val();
+                if (hospitalId) {
+                    $.get("/Patient/GetDoctors", { hospitalId: hospitalId }, function (data) {
+                        var doctorSelect = $("#DoctorId");
+                        doctorSelect.empty();
+                        doctorSelect.append($("<option></option>").val("").text("-- Select Doctor --"));
+                        $.each(data, function (index, item) {
+                            doctorSelect.append($("<option></option>").val(item.value).text(item.text));
+                        });
+                    });
+                }
+            });
+        });
+    </script>
+} 

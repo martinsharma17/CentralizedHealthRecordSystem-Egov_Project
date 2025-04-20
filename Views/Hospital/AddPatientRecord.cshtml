@@ -1,0 +1,55 @@
+@model HealthcareSystem.Models.PatientRecord
+
+@{
+    ViewData["Title"] = "Add Patient Record";
+}
+
+<div class="container mt-4">
+    <h2>Add Patient Record</h2>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="AddPatientRecord" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="PatientId" />
+                <input type="hidden" asp-for="HospitalId" />
+                <input type="hidden" asp-for="RecordDate" />
+
+                <div class="form-group mb-3">
+                    <label asp-for="DoctorId" class="control-label">Doctor</label>
+                    <select asp-for="DoctorId" class="form-select" asp-items="@(new SelectList(ViewBag.Doctors, "DoctorId", "Name"))">
+                        <option value="">-- Select Doctor --</option>
+                    </select>
+                    <span asp-validation-for="DoctorId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Diagnosis" class="control-label">Diagnosis</label>
+                    <textarea asp-for="Diagnosis" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Diagnosis" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Prescription" class="control-label">Prescription</label>
+                    <textarea asp-for="Prescription" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Prescription" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Notes" class="control-label">Notes</label>
+                    <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Notes" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Save Record</button>
+                    <a asp-action="PatientRecords" class="btn btn-secondary">Back to Records</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

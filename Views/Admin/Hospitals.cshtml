@@ -1,0 +1,39 @@
+@model IEnumerable<HealthcareSystem.Models.Hospital>
+@{
+    ViewData["Title"] = "Hospitals";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Hospitals</h2>
+        <a asp-action="CreateHospital" class="btn btn-primary">Add New Hospital</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Name)</th>
+                    <th>@Html.DisplayNameFor(model => model.Address)</th>
+                    <th>@Html.DisplayNameFor(model => model.ContactNumber)</th>
+                    <th>@Html.DisplayNameFor(model => model.UserName)</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Address)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ContactNumber)</td>
+                        <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+                        <td>
+                            <a asp-action="DeleteHospital" asp-route-id="@item.HospitalId" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div> 

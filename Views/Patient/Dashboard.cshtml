@@ -1,0 +1,89 @@
+@{
+    ViewData["Title"] = "Patient Dashboard";
+    var patient = ViewBag.Patient as HealthcareSystem.Models.Patient;
+    var patientRecords = ViewBag.PatientRecords as IEnumerable<HealthcareSystem.Models.PatientRecord>;
+}
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Welcome, @patient.Name</h1>
+        <a asp-action="Logout" class="btn btn-danger">
+            <i class="bi bi-box-arrow-right"></i> Logout
+        </a>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>Personal Information</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <dl class="row">
+                                <dt class="col-sm-4">Name</dt>
+                                <dd class="col-sm-8">@patient.Name</dd>
+                                <dt class="col-sm-4">Citizenship Number</dt>
+                                <dd class="col-sm-8">@patient.CitizenshipNumber</dd>
+                                <dt class="col-sm-4">Sex</dt>
+                                <dd class="col-sm-8">@patient.Sex</dd>
+                                <dt class="col-sm-4">Blood Type</dt>
+                                <dd class="col-sm-8">@patient.BloodType</dd>
+                            </dl>
+                        </div>
+                        <div class="col-md-6">
+                            <dl class="row">
+                                <dt class="col-sm-4">Phone Number</dt>
+                                <dd class="col-sm-8">@patient.PhoneNumber</dd>
+                                <dt class="col-sm-4">Address</dt>
+                                <dd class="col-sm-8">@patient.Address</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if (patientRecords != null && patientRecords.Any())
+            {
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Medical History</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Hospital</th>
+                                        <th>Doctor</th>
+                                        <th>Diagnosis</th>
+                                        <th>Prescription</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var record in patientRecords)
+                                    {
+                                        <tr>
+                                            <td>@record.RecordDate.ToString("dd/MM/yyyy")</td>
+                                            <td>@record.Hospital.Name</td>
+                                            <td>@record.Doctor.Name</td>
+                                            <td>@record.Diagnosis</td>
+                                            <td>@record.Prescription</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info">
+                    No medical records found.
+                </div>
+            }
+        </div>
+    </div>
+</div> 

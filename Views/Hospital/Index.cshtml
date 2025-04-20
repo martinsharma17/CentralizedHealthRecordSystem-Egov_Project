@@ -1,0 +1,42 @@
+@{
+    ViewData["Title"] = "Hospital Dashboard";
+    string hospitalName = Context.Session.GetString("HospitalName");
+}
+
+<div class="container">
+    <h1 class="mb-4">Welcome, @hospitalName</h1>
+    <hr />
+
+    <div class="row mt-4">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Doctor Management</h5>
+                    <p class="card-text">Add, view, and manage doctors in your hospital.</p>
+                    <a asp-action="Doctors" class="btn btn-primary">Manage Doctors</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Patient Management</h5>
+                    <p class="card-text">Create new patient accounts and view patient records.</p>
+                    <a asp-action="CreatePatient" class="btn btn-primary">Create Patient</a>
+                    <a asp-action="PatientSearch" class="btn btn-secondary mt-2">Search Patients</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Account Settings</h5>
+                    <p class="card-text">Manage your hospital account settings.</p>
+                    <a asp-action="ChangePassword" class="btn btn-primary">Change Password</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

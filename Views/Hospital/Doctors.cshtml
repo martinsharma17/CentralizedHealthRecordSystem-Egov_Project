@@ -1,0 +1,38 @@
+@model IEnumerable<HealthcareSystem.Models.Doctor>
+@{
+    ViewData["Title"] = "Doctors";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Doctors</h2>
+        <a asp-action="CreateDoctor" class="btn btn-primary">Add New Doctor</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Name)</th>
+                    <th>@Html.DisplayNameFor(model => model.Speciality)</th>
+                    <th>@Html.DisplayNameFor(model => model.AcademicQualification)</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Speciality)</td>
+                        <td>@Html.DisplayFor(modelItem => item.AcademicQualification)</td>
+                        <td>
+                            <a asp-action="EditDoctor" asp-route-id="@item.DoctorId" class="btn btn-primary btn-sm">Edit</a>
+                            <a asp-action="DeleteDoctor" asp-route-id="@item.DoctorId" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div> 

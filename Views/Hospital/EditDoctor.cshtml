@@ -1,0 +1,45 @@
+@model HealthcareSystem.Models.Doctor
+@{
+    ViewData["Title"] = "Edit Doctor";
+}
+
+<div class="container mt-4">
+    <h2>Edit Doctor</h2>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="EditDoctor">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="DoctorId" />
+                <input type="hidden" asp-for="HospitalId" />
+                
+                <div class="form-group mb-3">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Speciality" class="control-label"></label>
+                    <input asp-for="Speciality" class="form-control" />
+                    <span asp-validation-for="Speciality" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="AcademicQualification" class="control-label"></label>
+                    <input asp-for="AcademicQualification" class="form-control" />
+                    <span asp-validation-for="AcademicQualification" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <a asp-action="Doctors" class="btn btn-secondary">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 
